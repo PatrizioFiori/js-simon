@@ -1,72 +1,79 @@
 
-let numeriRandom = [];
+let arrayNumeriRandom = []
+let arrayNumeriSceltiDalGiocatore = []
 
-
-//Btn play selezionato. Si attiva al click
 document.getElementById("play").addEventListener("click", function(){
-document.getElementById("play").classList.add("d-none")
-document.getElementById("conferma").classList.remove("d-none")
+    event.preventDefault();
+    document.getElementById("play").classList.add("d-none")
+    document.getElementById("conferma").classList.remove("d-none")
 
-
-for (let i = 0; i < 5; i++){
-    numeriRandom.push(Math.floor(Math.random() * 60) + 1)
+    for (let i = 0; i < 5; i++){
+        arrayNumeriRandom.push(Math.floor(Math.random() * 50) + 1)
     }
 
-const numeriRandomMostrati = `
-    <p> ${numeriRandom[0]} </p>
-    <p> ${numeriRandom[1]} </p>
-    <p> ${numeriRandom[2]} </p>
-    <p> ${numeriRandom[3]} </p>
-    <p> ${numeriRandom[4]} </p>
-`
+    const numeriRandomMostrati = `
+    <p> ${arrayNumeriRandom[0]} </p>
+    <p> ${arrayNumeriRandom[1]} </p>
+    <p> ${arrayNumeriRandom[2]} </p>
+    <p> ${arrayNumeriRandom[3]} </p>
+    <p> ${arrayNumeriRandom[4]} </p>
+    `
 
-document.getElementById("numeri").innerHTML= numeriRandomMostrati
+    document.getElementById("numeri").innerHTML= numeriRandomMostrati
 
-event.preventDefault();
-
-
-let seconds = 2; 
-const countdown = document.getElementById('timer');
-document.getElementById("timer").innerHTML = seconds
-
-const intervalId = setInterval(() => {
-  seconds--; 
-  document.getElementById("timer").innerHTML = seconds
-
-  if (seconds <= 0) {
-    clearInterval(intervalId); 
-    document.getElementById("timer").innerHTML = "Inserisci i numeri !"
-    document.getElementById("numeri").innerHTML= "";
-  }
-}, 1000); 
+    let seconds = 2; 
+    const countdown = document.getElementById('timer');
+    document.getElementById("timer").innerHTML = seconds
+    
+    const intervalId = setInterval(() => {
+      seconds--; 
+      document.getElementById("timer").innerHTML = seconds
+    
+      if (seconds <= 0) {
+        clearInterval(intervalId); 
+        document.getElementById("timer").innerHTML = "Inserisci i numeri !"
+        document.getElementById("numeri").innerHTML= "";
+      }
+    }, 1000); 
 
 })
+
 
 document.getElementById("conferma").addEventListener("click", function(){
-event.preventDefault();
+    event.preventDefault();
+    const inputs = document.querySelectorAll("#boxRisposta input"); // Seleziona tutti gli input nel div
 
-for (let ctr = 0; ctr < 5; ctr++) {
+    
+    
+    for (let ctr = 0; ctr < 5; ctr++) {
+        const valoreInput = document.querySelector(`#boxRisposta input:nth-child(${ctr+1})`).value;
+        const numeroInput = parseInt(valoreInput)
+        if(arrayNumeriRandom.includes(numeroInput)){
+            console.log(`bravo ! i numeri erano ${arrayNumeriRandom}`);
+            ricaricoPagina()
+        } else {
+            console.log(`Scemo ! i numeri erano ${arrayNumeriRandom}`);
+            ricaricoPagina()
+        }
 
-}
+    }
 
-
-
+    
 })
 
 
+function ricaricoPagina() {
+let seconds = 5; 
+const countdown = document.getElementById('timer');
+document.getElementById("timer").innerHTML = seconds + " <br> Sto ricaricando la pagina"; // Mostra il countdown iniziale
 
+const intervalId = setInterval(() => {
+    seconds--; 
+    document.getElementById("timer").innerHTML = seconds + " <br> Sto ricaricando la pagina"; // Aggiorna il timer
 
-
-
-
-/* 
-Tasto play per iniziare il conto alla rovescia (OK)
-Generazione di numeri random, comparsa in pagina e inserimento all'interno di array (OK)
-Alla fine del conto alla rovescia i numeri random comparsi spariscono
-Check if numeroInseritiDalPlayer === numeriRandomGenerati al momento del click del tasto conferma
-    Se sono uguali (mex di successo)
-    Se non sono uguali (mex di errore)
-
-
-
-*/
+    if (seconds <= 0) {
+        clearInterval(intervalId); 
+        location.reload(); // Ricarica la pagina
+    }
+}, 1000); 
+}
