@@ -8,10 +8,21 @@ document.getElementById("play").addEventListener("click", function(){
     document.getElementById("play").classList.add("d-none")
     document.getElementById("conferma").classList.remove("d-none")
 
-    for (let i = 0; i < 5; i++){
-        arrayNumeriRandom.push(Math.floor(Math.random() * 50) + 1)
-    }
+    let arrayNumeriRandom = [];
 
+    for (let i = 0; i < 5; i++) {
+        let numeroGenerato;
+        
+        do {
+            numeroGenerato = Math.floor(Math.random() * 50) + 1;
+            
+        } while (arrayNumeriRandom.includes(numeroGenerato));
+        
+        arrayNumeriRandom.push(numeroGenerato);
+    }
+    
+    console.log(arrayNumeriRandom);
+    
     const numeriRandomMostrati = `
     <p> ${arrayNumeriRandom[0]} </p>
     <p> ${arrayNumeriRandom[1]} </p>
@@ -34,30 +45,61 @@ document.getElementById("play").addEventListener("click", function(){
         clearInterval(intervalId); 
         document.getElementById("timer").innerHTML = "Inserisci i numeri !"
         document.getElementById("numeri").innerHTML= "";
+        
+        const inputs = document.querySelectorAll("#boxRisposta input");
+        
+        inputs.forEach(input => {
+            input.disabled = false; // Rimuove l'attributo disabled
+        });
+        
       }
     }, 1000); 
 
 })
 
+
+
 //evento che al click di conferma checka se i numeri corrispondono
 document.getElementById("conferma").addEventListener("click", function(){
     event.preventDefault();
     const inputs = document.querySelectorAll("#boxRisposta input"); // Seleziona tutti gli input nel div
+    const numeriInseriti = []
 
+
+        // Controllo dei duplicati nei numeri inseriti
+        let duplicati = false;
     
+        for (let i = 0; i < inputs.length; i++) {
+            const valoreInput = inputs[i].value.trim();
+            const numeroInput = parseInt(valoreInput);
     
-    for (let ctr = 0; ctr < 5; ctr++) {
-        const valoreInput = document.querySelector(`#boxRisposta input:nth-child(${ctr+1})`).value;
-        const numeroInput = parseInt(valoreInput)
-        if(arrayNumeriRandom.includes(numeroInput)){
-            console.log(`bravo ! i numeri erano ${arrayNumeriRandom}`);
-            ricaricoPagina()
-        } else {
-            console.log(`Scemo ! i numeri erano ${arrayNumeriRandom}`);
-            ricaricoPagina()
+            if (numeriInseriti.includes(numeroInput)) {
+                duplicati = true;
+                break;
+            } else {
+                numeriInseriti.push(numeroInput);
+            }
         }
+        if (duplicati) {
+            alert("Hai inserito numeri duplicati. Per favore, inserisci numeri unici.");
+            return;
+        }
+    
 
-    }
+
+        for (let ctr = 0; ctr < 5; ctr++) {
+            const valoreInput = document.querySelectorAll("#boxRisposta input")[ctr].value;
+            const numeroInput = parseInt(valoreInput);
+            
+            if(arrayNumeriRandom.includes(numeroInput)){
+                console.log(`Bravo! I numeri erano ${arrayNumeriRandom}`);
+                ricaricoPagina();  // Puoi gestire questa funzione come vuoi
+            } else {
+                console.log(`Scemo! I numeri erano ${arrayNumeriRandom}`);
+                ricaricoPagina();  // Puoi gestire questa funzione come vuoi
+            }
+        }
+        
 
     
 })
