@@ -1,7 +1,8 @@
 
 let arrayNumeriRandom = []
-let arrayNumeriSceltiDalGiocatore = []
 
+
+//evento che al click di play fa partire il gioco generando i numeri randomicamente e startando il timer
 document.getElementById("play").addEventListener("click", function(){
     event.preventDefault();
     document.getElementById("play").classList.add("d-none")
@@ -38,7 +39,7 @@ document.getElementById("play").addEventListener("click", function(){
 
 })
 
-
+//evento che al click di conferma checka se i numeri corrispondono
 document.getElementById("conferma").addEventListener("click", function(){
     event.preventDefault();
     const inputs = document.querySelectorAll("#boxRisposta input"); // Seleziona tutti gli input nel div
@@ -62,6 +63,8 @@ document.getElementById("conferma").addEventListener("click", function(){
 })
 
 
+
+//function per ricaricare la pagina
 function ricaricoPagina() {
 let seconds = 5; 
 const countdown = document.getElementById('timer');
