@@ -93,10 +93,10 @@ document.getElementById("conferma").addEventListener("click", function(){
             
             if(arrayNumeriRandom.includes(numeroInput)){
                 console.log(`Bravo! I numeri erano ${arrayNumeriRandom}`);
-                ricaricoPagina();  // Puoi gestire questa funzione come vuoi
+                ricaricoPagina(); 
             } else {
                 console.log(`Scemo! I numeri erano ${arrayNumeriRandom}`);
-                ricaricoPagina();  // Puoi gestire questa funzione come vuoi
+                ricaricoPagina();  
             }
         }
         
