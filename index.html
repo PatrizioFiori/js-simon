@@ -12,8 +12,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     
 </head>
-<body>
+<body class="bg-success-subtle">
     
+
+ <h1 class="text-center mt-3">Simone dice...</h1>
+
+ <div class="container">
+    <div class="row text-center mt-5">
+        <p id="timer"></p>
+        <div class="col-12 d-flex justify-content-center align-items-center mt-3">
+            <form id="risposte" class="">
+                <div class="d-flex gap-5" id="boxRisposta">
+                    <input type="number" class="form-control" min="1" max="50" required>
+                    <input type="number" class="form-control" min="1" max="50" required>
+                    <input type="number" class="form-control" min="1" max="50" required>
+                    <input type="number" class="form-control" min="1" max="50" required>
+                    <input type="number" class="form-control" min="1" max="50" required>
+
+                </div>
+                <button class="btn btn-success mt-5 d-block mx-auto">PLAY!</button>
+                <button class="btn btn-primary mt-5 d-block mx-auto">Conferma</button>
+                <p class="text-danger text-center mt-3 text-uppercase fw-bold" id="messaggio">Error</p>
+            </form>
+        </div>
+    </div>
+ </div>
 
     <script src="./script.js"></script>
 </body>
