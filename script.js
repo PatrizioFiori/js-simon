@@ -4,16 +4,14 @@ let arrayNumeriRandom = []
 
 //evento che al click di play fa partire il gioco generando i numeri randomicamente e startando il timer
 document.getElementById("play").addEventListener("click", function(){
-    event.preventDefault();
+    event.preventDefault(); 
     document.getElementById("play").classList.add("d-none")
     document.getElementById("conferma").classList.remove("d-none")
-
-    let arrayNumeriRandom = [];
 
     for (let i = 0; i < 5; i++) {
         let numeroGenerato;
         
-        do {
+        do { //genera numeri fintanto che il numero generato non sia univoco nell'array
             numeroGenerato = Math.floor(Math.random() * 50) + 1;
             
         } while (arrayNumeriRandom.includes(numeroGenerato));
@@ -23,7 +21,7 @@ document.getElementById("play").addEventListener("click", function(){
     
     console.log(arrayNumeriRandom);
     
-    const numeriRandomMostrati = `
+    const numeriRandomMostratiSuSchermo = `
     <p> ${arrayNumeriRandom[0]} </p>
     <p> ${arrayNumeriRandom[1]} </p>
     <p> ${arrayNumeriRandom[2]} </p>
@@ -31,9 +29,9 @@ document.getElementById("play").addEventListener("click", function(){
     <p> ${arrayNumeriRandom[4]} </p>
     `
 
-    document.getElementById("numeri").innerHTML= numeriRandomMostrati
+    document.getElementById("numeri").innerHTML= numeriRandomMostratiSuSchermo
 
-    let seconds = 2; 
+    let seconds = 10; 
     const countdown = document.getElementById('timer');
     document.getElementById("timer").innerHTML = seconds
     
@@ -48,7 +46,7 @@ document.getElementById("play").addEventListener("click", function(){
         
         const inputs = document.querySelectorAll("#boxRisposta input");
         
-        inputs.forEach(input => {
+        inputs.forEach(input => { // DA APPROFONDIRE IL FUNZIONAMENTO ( inputs.forEach SUGGERITO DA IA)
             input.disabled = false; // Rimuove l'attributo disabled
         });
         
@@ -60,7 +58,7 @@ document.getElementById("play").addEventListener("click", function(){
 
 
 //evento che al click di conferma checka se i numeri corrispondono
-document.getElementById("conferma").addEventListener("click", function(){
+document.getElementById("conferma").addEventListener("click", function (){
     event.preventDefault();
     const inputs = document.querySelectorAll("#boxRisposta input"); // Seleziona tutti gli input nel div
     const numeriInseriti = []
@@ -86,16 +84,19 @@ document.getElementById("conferma").addEventListener("click", function(){
         }
     
 
-
         for (let ctr = 0; ctr < 5; ctr++) {
             const valoreInput = document.querySelectorAll("#boxRisposta input")[ctr].value;
             const numeroInput = parseInt(valoreInput);
             
             if(arrayNumeriRandom.includes(numeroInput)){
-                console.log(`Bravo! I numeri erano ${arrayNumeriRandom}`);
+                document.getElementById("messaggio").classList.remove("d-none")
+                document.getElementById("messaggio").classList.add("text-success")
+                document.getElementById("messaggio").innerHTML = `Bravo! I numeri erano ${arrayNumeriRandom}`
                 ricaricoPagina(); 
             } else {
-                console.log(`Scemo! I numeri erano ${arrayNumeriRandom}`);
+                document.getElementById("messaggio").classList.remove("d-none")
+                document.getElementById("messaggio").classList.add("text-danger")
+                document.getElementById("messaggio").innerHTML = `Cretino! I numeri erano ${arrayNumeriRandom}`
                 ricaricoPagina();  
             }
         }
