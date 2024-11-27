@@ -1,6 +1,22 @@
 
 let arrayNumeriRandom = []
 
+//mi rompe le scatole che ENTER possa ricaricare il gioco
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        alert("Tasto Invio disabilitato!");
+    }
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "r") {
+        alert("Retry");
+        ricaricoPagina();  
+    }
+});
+
+
 
 //evento che al click di play fa partire il gioco generando i numeri randomicamente e startando il timer
 document.getElementById("play").addEventListener("click", function(){
@@ -31,7 +47,7 @@ document.getElementById("play").addEventListener("click", function(){
 
     document.getElementById("numeri").innerHTML= numeriRandomMostratiSuSchermo
 
-    let seconds = 10; 
+    let seconds = 2; 
     const countdown = document.getElementById('timer');
     document.getElementById("timer").innerHTML = seconds
     
@@ -84,24 +100,31 @@ document.getElementById("conferma").addEventListener("click", function (){
         }
     
 
-        for (let ctr = 0; ctr < 5; ctr++) {
-            const valoreInput = document.querySelectorAll("#boxRisposta input")[ctr].value;
-            const numeroInput = parseInt(valoreInput);
-            
-            if(arrayNumeriRandom.includes(numeroInput)){
-                document.getElementById("messaggio").classList.remove("d-none")
-                document.getElementById("messaggio").classList.add("text-success")
-                document.getElementById("messaggio").innerHTML = `Bravo! I numeri erano ${arrayNumeriRandom}`
-                ricaricoPagina(); 
-            } else {
-                document.getElementById("messaggio").classList.remove("d-none")
-                document.getElementById("messaggio").classList.add("text-danger")
-                document.getElementById("messaggio").innerHTML = `Cretino! I numeri erano ${arrayNumeriRandom}`
-                ricaricoPagina();  
-            }
-        }
-        
+        //QUESTA PARTE NON MI PIACE. DA RISISTEMARE !
+        let success = true; 
 
+        if (numeriInseriti.length === arrayNumeriRandom.length) {
+            for (let i = 0; i < numeriInseriti.length; i++) {
+                if (numeriInseriti[i] !== arrayNumeriRandom[i]) {
+                    success = false; 
+                    break; 
+                }
+            }
+        } else {
+            success = false; 
+        }
+
+        if (success) {
+            document.getElementById("messaggio").classList.remove("d-none")
+            document.getElementById("messaggio").classList.add("text-success");
+            document.getElementById("messaggio").innerHTML = `Bravo! I numeri erano ${arrayNumeriRandom}`;
+        } else {
+            document.getElementById("messaggio").classList.remove("d-none")
+            document.getElementById("messaggio").classList.add("text-danger");
+            document.getElementById("messaggio").innerHTML = `Cretino! I numeri erano ${arrayNumeriRandom}`;
+        }
+    
+        ricaricoPagina(); // Ricarica la pagina
     
 })
 

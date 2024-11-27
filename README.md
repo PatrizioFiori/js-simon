@@ -13,3 +13,6 @@ non è importante l’ordine con cui l’utente inserisce i numeri, basta che ne
 - Inseriamo la validazione: se l’utente mette due numeri uguali o inserisce cose diverse da numeri lo blocchiamo in qualche modo.
 - Se l’utente ha inserito qualcosa di non valido, segnaliamolo visivamente nel form.
 - I numeri random generati devono essere univoci
+
+
+39 24 8 10 30
