@@ -12,7 +12,7 @@ document.addEventListener("keydown", function(event) {
 document.addEventListener("keydown", function(event) {
     if (event.key === "r") {
         alert("Retry");
-        ricaricoPagina();  
+        location.reload();
     }
 });
 
